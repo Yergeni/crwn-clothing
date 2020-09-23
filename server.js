@@ -22,7 +22,7 @@ app.use(cors()); // allow cross-origin request
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/build')));
 
-    // any url the user hits responds with the index.html file
+    // any url the user hits responds with the index.html file. This will take care of all routes frontend
     app.get('*', function(req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html')) // send our static files (HTML, JS, CSS)
     });
