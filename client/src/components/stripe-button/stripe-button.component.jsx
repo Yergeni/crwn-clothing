@@ -6,7 +6,7 @@ const StripeCheckoutButton = ({ price }) => {
   // console.log('STRIPE KEY on dev env: ', process.env.REACT_APP_STRIPE_PUBLISH_KEY)
   const priceForStripe = price * 100; // Stripe require price in cents
   // const publishableKey = process.env.REACT_APP_STRIPE_PUBLISH_KEY;
-  // const publishableKey = 'pk_test_51HOVT8BETI3Lr3veD7H2phQJ7xObvi8XiLcztzgWP60uQveICvsUvttlCIj6MTUvcO5Npu8OGx1P84fGRJIeL4CV00gPdY0R6R'
+  const publishableKey = 'pk_test_51HOVT8BETI3Lr3veD7H2phQJ7xObvi8XiLcztzgWP60uQveICvsUvttlCIj6MTUvcO5Npu8OGx1P84fGRJIeL4CV00gPdY0R6R'
 
   const onToken = (token) => {
     console.log(token); // token for making payment on stripe
