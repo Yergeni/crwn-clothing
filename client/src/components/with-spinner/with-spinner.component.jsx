@@ -1,18 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { SpinnerContainer, SpinnerOverlay } from './with-spinner.styles';
+import Spinner from "../spinner/spinner.component";
 
-const WithSpinner = WrappedComponent => {
-  const Spinner = ({ isLoading, ...otherProps }) => {
-    return isLoading ? (
-      <SpinnerOverlay>
-        <SpinnerContainer />
-      </SpinnerOverlay>
-    ) : (
-      <WrappedComponent {...otherProps} />
-    );
-  };
-  return Spinner;
+// HOC that wraps a compnent and show a loading icon if the component is not ready
+const WithSpinner = (WrappedComponent) => ({ isLoading, ...otherProps }) => {
+	return isLoading ? <Spinner /> : <WrappedComponent {...otherProps} />;
 };
 
 export default WithSpinner;
