@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const enforce = require('express-sslify'); // to enforce HTTP calls to use HTTPS
 
 if (process.env.NODE_ENV !== 'production') {
     // load dotenv module in environments other than production
@@ -15,6 +16,7 @@ const port = process.env.PORT || 5000; // When it gets deployed to Heroku, it wi
 
 app.use(bodyParser.json()); // process al the incoming request bodies and covert them to json
 app.use(bodyParser.urlencoded({ extended: true })); // encode the url
+app.use(enforce.HTTPS({ trustProtoHeader: true })); // trustProtoHeader needed for reverse proxy in Heroku
 
 app.use(cors()); // allow cross-origin request
 
@@ -32,7 +34,12 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(port, error => {
     if (error) throw error;
     console.log('Server running on port: ' + port);
-})
+});
+
+// Giving the service worker
+app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+});
 
 // Post route to payment
 app.post('/payment', (req, res) => {
