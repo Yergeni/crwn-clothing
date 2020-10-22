@@ -15,15 +15,15 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // give back a 
 const app = express();
 const port = process.env.PORT || 5000; // When it gets deployed to Heroku, it will set the process PORT 
 
-app.use(compresion());
 app.use(bodyParser.json()); // process al the incoming request bodies and covert them to json
 app.use(bodyParser.urlencoded({ extended: true })); // encode the url
-app.use(enforce.HTTPS({ trustProtoHeader: true })); // trustProtoHeader needed for reverse proxy in Heroku
 
 app.use(cors()); // allow cross-origin request
 
 // Serve all static files
 if (process.env.NODE_ENV === 'production') {
+    app.use(compresion());
+    app.use(enforce.HTTPS({ trustProtoHeader: true })); // trustProtoHeader needed for reverse proxy in Heroku
     app.use(express.static(path.join(__dirname, 'client/build')));
 
     // any url the user hits responds with the index.html file. This will take care of all routes frontend
